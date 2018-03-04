@@ -30,6 +30,7 @@ router.get("/", auth.optional, function(req, res, next) {
       .limit(Number(limit))
       .skip(Number(offset))
       .sort({ createdAt: "desc" })
+      .populate('user')// populate user data
       .exec(),
     Point.count(query).exec()
   ])
@@ -76,7 +77,7 @@ router.post("/bulk", auth.required, function(req, res, next) {
       }
       var points = req.body.points.map(point => {
         const point_ = {
-          user: new mongoose.Types.ObjectId(user._id),
+          user: user,
           name: point.name,
           coordinates: point.coordinates
         };
