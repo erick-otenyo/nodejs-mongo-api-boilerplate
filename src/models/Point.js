@@ -30,7 +30,7 @@ PointSchema.methods.togeoJSONFor = function() {
     },
     properties: {
       name: this.name,
-      user: this.user
+      user: this.user.toProfileJSONFor()
     }
   };
 };
